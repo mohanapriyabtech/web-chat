@@ -4,10 +4,12 @@ import { helper } from "../../../../../utils/socket.io-helper";
 
 
 export const messageTyping = async (message) => {
+    console.log(message,"ms")
 
     try {
         if (typeof message === 'object') {
-            const receiverClients = helper.clients[message.receiver];
+            const receiverClients = helper.clients.get(message.receiver)
+            console.log(receiverClients)
             
             if (receiverClients && receiverClients.length > 0) {
                 helper.sendToSocketClients(message.receiver, EVENTS.SINGLE_CHAT_TYPING, message);

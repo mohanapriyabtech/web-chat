@@ -5,6 +5,9 @@ import { addContact } from "../modules/v1/user/controllers/user-single-chat-mana
 import { messageTyping } from "../modules/v1/user/controllers/user-single-chat-management/single-chat-typing";
 import { singleChatMessage } from "../modules/v1/user/controllers/user-single-chat-management/single-chat-message";
 import { singleChatRead } from "../modules/v1/user/controllers/user-single-chat-management/single-chat-read";
+import { messageDelivered } from "../modules/v1/user/controllers/user-single-chat-management/single-chat-delivered";
+import { lastMessage } from "../modules/v1/user/controllers/user-single-chat-management/last-message";
+import { onlineOffline } from "../modules/v1/user/controllers/user-single-chat-management/online-offline-events";
 
 
 export default class SocketConfig {
@@ -61,10 +64,16 @@ export const eventHandler = (socket) => {
 
     })
     socket.on(EVENTS.ADD_CONTACT, addContact);
+
     socket.on(EVENTS.SINGLE_CHAT_SEND_MESSAGE, singleChatMessage);
     socket.on(EVENTS.SINGLE_CHAT_TYPING, messageTyping);
-    socket.on(EVENTS.SINGLE_CHAT_DELIVERED, delivered);
+    socket.on(EVENTS.SINGLE_CHAT_DELIVERED, messageDelivered);
     socket.on(EVENTS.SINGLE_CHAT_READ, singleChatRead);
+
+    socket.on(EVENTS.LAST_MESSAGE, lastMessage);
+   
+    socket.on(EVENTS.ONLINE_OFFLINE, onlineOffline);
+
         
 
 }

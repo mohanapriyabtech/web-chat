@@ -1,10 +1,12 @@
 import { EVENTS , MESSAGE_STATUS} from "../../events/chat-events";
 import { helper } from "../../../../../utils/socket.io-helper";
 import { ChatMessage } from "../../models/chat-message-model";
+import { User } from "../../models/user-model";
 
 
 
 export const singleChatMessage = async (message, callback) => {
+    
     try {
         if (typeof message !== 'object') console.log(`Single chat received with unsupported data format: ${typeof message}`);
         const senderInfo = await User.findById(message.sender).catch(console.error);
@@ -24,7 +26,7 @@ export const singleChatMessage = async (message, callback) => {
         message.created_at = saveResponse.created_at;
         helper.sendToSocketClients(message.sender, message.event, message);
         helper.sendToSocketClients(message.receiver, message.event, message);
-        sendChatNotification(message);
+        // sendChatNotification(message);
 
     } catch (error) {
         console.error('Exception on single chat');

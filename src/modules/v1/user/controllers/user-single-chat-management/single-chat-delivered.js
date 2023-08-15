@@ -10,11 +10,11 @@ export const messageDelivered = async (message) => {
 
       message.message_status = MESSAGE_STATUS.DELIVERED;
       helper.sendToSocketClients(message.sender, EVENTS.SINGLE_CHAT_DELIVERED, message);
-      helper.sendToSocketClientsWithAck(message.receiver, EVENTS.SINGLE_CHAT_DELIVERED, message);
+      helper.sendToSocketClients(message.receiver, EVENTS.SINGLE_CHAT_DELIVERED, message);
       await updateMessageStatus(message);
 
     } catch (error) {
-      console.log('Exception on singleChatDelivered');
+      console.log('Exception on Single chat delivered');
       console.error(error);
     }
 };

@@ -18,7 +18,7 @@ class ChatHelper {
             this.clients.set(clientId, []);
         }
 
-        this.clients.get(clientId).push({ id: socket.id, socket: socket });
+        this.clients.get(clientId).push({ id: socket.id, socket: socket });  // store socket id and meta data
 
         this.logClientTable(); // Call the method here to log the updated client list
     }
@@ -81,6 +81,7 @@ class ChatHelper {
         if (typeof receiver === 'string') {
             this.sendToSocketClient(receiver, event, message);
         } else if (Array.isArray(receiver)) {
+            console.log("else")
             for (const clientId of receiver) {
                 this.sendToSocketClient(clientId.toString(), event, message); // Convert ObjectId to string
             }

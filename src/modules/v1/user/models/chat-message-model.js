@@ -9,20 +9,19 @@ const ObjectId = Schema.ObjectId;
  * @description Chat model
  */
 const ChatMessageSchema = new Schema({
-    sender_id: {
+    sender: {
         type: ObjectId,
         ref : "User",
         required: [true, 'sender must not be empty'],
     },
-    receiver_id: {
+    receiver: {
         type: ObjectId,
         ref : "User",
         required: [true, 'receiver must not be empty'],
     },
     message_id: {
         type: String,
-        unique:true,
-        required: [true, 'Message id must not be empty'],
+        required: [true, 'message id must not be empty'],
     },
     message: {
         type: String,
@@ -32,15 +31,18 @@ const ChatMessageSchema = new Schema({
         type: Number,
         required: [true, 'Message type must not be empty'],
     },
-    message_status: {
-        type: Number,
-        required: [true, 'Message status must not be empty'],
+    event: {
+        type: String
+    },
+    message_status: { 
+        type: Number, 
+        default: 1 
     },
     created_at: {
         type: Date,
         default: Date.now,
     },
-    message_status: { type: Number, default: 1 },
+    
 }, { versionKey: false });
 
 ChatMessageSchema.plugin(mongoosePaginate);

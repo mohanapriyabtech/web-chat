@@ -27,7 +27,7 @@ export const updateMessageStatus = async (data) => {
       const dbQuery = { message_id: { $in: data.message_id } };
       const updateQuery = { message_status: data.message_status };
       const updateStatus = await ChatMessage.updateMany(dbQuery, updateQuery).exec();
-      console.log(`Updated ${updateStatus.nModified} messages to status ${data.message_status}`);
+      console.log(`Updated ${updateStatus.Modified} messages to status ${data.message_status}`);
     } catch (error) {
       console.error('Error while updating message status:', error);
     }
